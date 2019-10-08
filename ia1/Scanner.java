@@ -53,7 +53,6 @@ public class Scanner {
 		s.add("(");
 		s.add(")");
 		s.add(";");
-		s.add("--");
     }
 	private void initComments(Set<String> s) {
     	s.add("/");

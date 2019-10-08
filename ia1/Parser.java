@@ -21,19 +21,19 @@ public class Parser {
 	return scanner.pos();
     }
 
-    private NodeUnOp parseUnOp(String ch) throws SyntaxException {
-    	if (ch.equals("")){
-    		if (curr().equals(new Token("-"))) {
-				match("-");
-				return parseUnOp("-");
-			}
-    	else{
-    		match("-");
-    		return new NodeUnOp(pos(), "--");
-			}
-		}
-    	return null;
-	}
+//    private NodeUnOp parseUnOp(String ch) throws SyntaxException {
+//    	if (ch.equals("")){
+//    		if (curr().equals(new Token("-"))) {
+//				match("-");
+//				return parseUnOp("-");
+//			}
+//    	else{
+//    		match("-");
+//    		return new NodeUnOp(pos(), "--");
+//			}
+//		}
+//    	return null;
+//	}
     private NodeMulop parseMulop() throws SyntaxException {
 		if (curr().equals(new Token("*"))) {
 			match("*");
@@ -59,7 +59,12 @@ public class Parser {
     }
 
     private NodeFact parseFact() throws SyntaxException {
-		if (curr().equals(new Token("("))) {
+		if (curr().equals(new Token("-"))){
+			match("-");
+			NodeFact fact= parseFact();
+			return new NodeFactUnary(fact);
+		}
+    	if (curr().equals(new Token("("))) {
 			match("(");
 			NodeExpr expr=parseExpr();
 			match(")");
