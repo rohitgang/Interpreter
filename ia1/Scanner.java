@@ -30,9 +30,7 @@ public class Scanner {
 		s.add("\t");
     }
 
-    private void initDigits(Set<String> s) {
-	fill(s,'0','9');
-    }
+    private void initDigits(Set<String> s) { fill(s,'0','9'); }
 
     private void initLetters(Set<String> s) {
 		fill(s,'A','Z');
@@ -55,8 +53,8 @@ public class Scanner {
 		s.add(";");
     }
 	private void initComments(Set<String> s) {
-    	s.add("/");
-    	s.add("*");
+    	s.add("^");
+    	s.add("$");
     	s.add("\n");
 	}
     private void initKeywords(Set<String> s) {
@@ -101,6 +99,11 @@ public class Scanner {
     private void nextNumber() {
 		int old=pos;
 		many(digits);
+		String point= ".";
+		if (point.equals(program.substring(pos, pos+1))){
+			pos += 1;
+			many(digits);
+		}
 		token=new Token("num",program.substring(old,pos));
     }
 
@@ -127,17 +130,17 @@ public class Scanner {
 		token=new Token(lexeme); // one-char operator
     }
 
-    private boolean skipComment(){
-    	String c= program.charAt(pos)+"";
-    	while(!c.equals(";") || !c.equals("\n") || !comments.contains(c)){
-    		pos++;
-			if (done()) {
-				token=new Token("EOF");
-				return false;
-			}
-    		c= program.charAt(pos)+"";
-		}
-    	return true;
+    private void skipComment(char c){
+//    	while(!c.equals(";") || !c.equals("\n") || !comments.contains(c)){
+//    		past(c.charAt(0));
+//    		pos++;
+//			if (done()) {
+//				token=new Token("EOF");
+//				return false;
+//			}
+//    		c= program.charAt(pos)+"";
+		pos++;
+		past(c);
 	}
     // This method determines the kind of the next token (e.g., "id"),
     // and calls a method to scan that token's lexeme (e.g., "foo").
@@ -150,13 +153,8 @@ public class Scanner {
 		String c=program.charAt(pos)+"";
 
 		if (comments.contains(c)){
-			past(c.charAt(0));
-			skipComment();
-			next();
-			if (done()) {
-				token=new Token("EOF");
-				return false;
-			}
+			skipComment(c.charAt(0));
+			return next();
 		}
 		if (digits.contains(c))
 			nextNumber();
