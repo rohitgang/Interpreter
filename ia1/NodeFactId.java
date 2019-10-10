@@ -5,7 +5,7 @@ public class NodeFactId extends NodeFact {
     /**
      * constructor to initialize variables
      */
-    constructor to initialize variables
+
     public NodeFactId(int pos, String id) {
 	this.pos=pos;
 	this.id=id;
