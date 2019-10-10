@@ -15,11 +15,26 @@
 import java.util.HashMap;
 
 public class Environment {
-    HashMap <String, Double> hm= new HashMap<String, Double>();
+    private HashMap <String, Double> hm= new HashMap<String, Double>();
+
+    /**
+     * puts the value val for key var in the hashmap
+     * @param var
+     * @param val
+     * @return val
+     */
     public double put(String var, double val) {
         hm.put(var, val);
         return val;
     }
+
+    /**
+     * gets the value for the key var
+     * @param pos
+     * @param var
+     * @return key
+     * @throws EvalException
+     */
     public double get(int pos, String var) throws EvalException {
         return hm.get(var);
     }

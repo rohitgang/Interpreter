@@ -35,20 +35,6 @@ public class Parser {
 	return scanner.pos();
     }
 
-//    private NodeUnOp parseUnOp(String ch) throws SyntaxException {
-//    	if (ch.equals("")){
-//    		if (curr().equals(new Token("-"))) {
-//				match("-");
-//				return parseUnOp("-");
-//			}
-//    	else{
-//    		match("-");
-//    		return new NodeUnOp(pos(), "--");
-//			}
-//		}
-//    	return null;
-//	}
-
 	/**
 	 * parseMulop checks if the current token is a "*"
 	 * if it is , we return a NodeMulop object with the position of token and the "*" string
